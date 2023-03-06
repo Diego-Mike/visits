@@ -1,8 +1,8 @@
-import Fastify, { FastifyReply, FastifyRequest } from "fastify";
+import Fastify from "fastify";
 
 const fastify = Fastify({ logger: true });
 
-fastify.post("/", async (req: FastifyRequest, rep: FastifyReply) => {
+fastify.post("/", async (req, rep) => {
   return {
     status: "successful",
     error: false,
