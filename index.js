@@ -2,6 +2,10 @@ import Fastify from "fastify";
 
 const fastify = Fastify({ logger: true });
 
+fastify.get("/", (req, rep) => {
+  rep.send({ message: "healthy state" });
+});
+
 fastify.post("/", async (req, rep) => {
   return {
     status: "successful",
