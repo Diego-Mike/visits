@@ -5,7 +5,7 @@ dotenv.config();
 
 const fastify = Fastify({ logger: true });
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || "3000";
 
 fastify.get("/", (req, rep) => {
   rep.send({ message: "healthy state" });
