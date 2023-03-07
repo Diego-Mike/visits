@@ -1,34 +1,26 @@
-import Fastify from "fastify";
-import dotenv from "dotenv";
+import express from "express";
 
-dotenv.config();
+const app = express();
+const port = process.env.PORT || 3000;
 
-const fastify = Fastify({ logger: true });
+app.use(express.json());
+app.use(express.raw({ type: "application/vnd.custom-type" }));
+app.use(express.text({ type: "text/html" }));
 
-const PORT = process.env.PORT || "3000";
-
-fastify.get("/", (req, rep) => {
-  rep.send({ message: "healthy state" });
+app.get("/health", async (req, res) => {
+  res.send({ msg: "damn" });
 });
 
-fastify.post("/visit", async (req, rep) => {
-  return {
+app.post("/", async (req, res) => {
+  return res.json({
     status: "successful",
     error: false,
     data: {
       visits: ["pobla cra 59 #25-21"],
     },
-  };
+  });
 });
 
-const start = async () => {
-  try {
-    await fastify.listen({ port: PORT });
-    console.log(`Server ready on port ${PORT}`);
-  } catch (error) {
-    fastify.log.error(error);
-    process.exit(1);
-  }
-};
-
-start();
+app.listen(Number(port), "0.0.0.0", () => {
+  console.log(`Example app listening at http://localhost:${port}`);
+});
